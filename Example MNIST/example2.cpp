@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include "CNN/cnn.h"
+#include "../CNN/cnn.h"
 #include "byteswap.h"
 #include "sleep.h"
 

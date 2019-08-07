@@ -5,7 +5,7 @@
 #include <fstream>
 #include <algorithm>
 #include "byteswap.h"
-#include "CNN/cnn.h"
+#include "../CNN/cnn.h"
 
 using namespace std;
 
