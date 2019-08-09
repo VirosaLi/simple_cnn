@@ -1,6 +1,9 @@
 # simple_cnn
 
 ## Forked Repo for CSE 569S
+This repo is forked and refactored from https://github.com/can1357/simple_cnn for CSE 569S.
+
+## Original Description from the author
 
 simple_cnn is ment to be an easy to read and easy to use convolutional neural network library.
 
