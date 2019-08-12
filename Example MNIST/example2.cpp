@@ -28,9 +28,9 @@ float train( vector<layer_t*>& layers, tensor_t<float>& data, tensor_t<float>& e
 			calc_grads( layers[i], layers[i + 1]->grads_in );
 	}
 
-	for ( int i = 0; i < layers.size(); i++ )
+	for (auto & layer : layers)
 	{
-		fix_weights( layers[i] );
+		fix_weights( layer );
 	}
 
 	float err = 0;
@@ -70,7 +70,7 @@ uint8_t* read_file( const char* szFile )
 	if ( size == -1 )
 		return nullptr;
 
-	uint8_t* buffer = new uint8_t[size];
+	auto* buffer = new uint8_t[size];
 	file.read( (char*)buffer, size );
 	return buffer;
 }
@@ -117,15 +117,15 @@ int main()
 
 	vector<layer_t*> layers;
 
-	conv_layer_t * layer1 = new conv_layer_t( 1, 5, 8, cases[0].data.size );		// 28 * 28 * 1 -> 24 * 24 * 8
-	relu_layer_t * layer2 = new relu_layer_t( layer1->out.size );
-	pool_layer_t * layer3 = new pool_layer_t( 2, 2, layer2->out.size );				// 24 * 24 * 8 -> 12 * 12 * 8
+	auto * layer1 = new conv_layer_t( 1, 5, 8, cases[0].data.size );		// 28 * 28 * 1 -> 24 * 24 * 8
+	auto * layer2 = new relu_layer_t( layer1->out.size );
+	auto * layer3 = new pool_layer_t( 2, 2, layer2->out.size );				// 24 * 24 * 8 -> 12 * 12 * 8
 
-	conv_layer_t * layer4 = new conv_layer_t( 1, 3, 10, layer3->out.size );			// 12 * 12 * 6 -> 10 * 10 * 10
-	relu_layer_t * layer5 = new relu_layer_t( layer4->out.size );
-	pool_layer_t * layer6 = new pool_layer_t( 2, 2, layer5->out.size );				// 10 * 10 * 10 -> 5 * 5 * 10
+	auto * layer4 = new conv_layer_t( 1, 3, 10, layer3->out.size );			// 12 * 12 * 6 -> 10 * 10 * 10
+	auto * layer5 = new relu_layer_t( layer4->out.size );
+	auto * layer6 = new pool_layer_t( 2, 2, layer5->out.size );				// 10 * 10 * 10 -> 5 * 5 * 10
 
-	fc_layer_t * layer7 = new fc_layer_t( layer6->out.size, 10 );					// 4 * 4 * 16 -> 10
+	auto * layer7 = new fc_layer_t( layer6->out.size, 10 );					// 4 * 4 * 16 -> 10
 
 	layers.push_back( (layer_t*)layer1 );
 	layers.push_back( (layer_t*)layer2 );
