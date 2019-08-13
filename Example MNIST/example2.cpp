@@ -192,6 +192,7 @@ int main() {
         wait.tv_sec = 1;
         wait.tv_nsec = 0;
         nanosleep(&wait, nullptr);
+        break;
     }
     return 0;
 }
