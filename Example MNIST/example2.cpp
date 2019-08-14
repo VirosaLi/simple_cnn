@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <iostream>
-#include <fstream>
 #include <algorithm>
+#include <fstream>
 #include "../CNN/cnn.h"
 #include "byteswap.h"
 #include "sleep.h"
@@ -9,7 +9,7 @@
 using namespace std;
 
 float train(vector<layer_t *> &layers, tensor_t<float> &data, tensor_t<float> &expected) {
-    for (int i = 0; i < layers.size(); i++) {
+    for (size_t i = 0; i < layers.size(); i++) {
         if (i == 0)
             activate(layers[i], data);
         else
@@ -40,7 +40,7 @@ float train(vector<layer_t *> &layers, tensor_t<float> &data, tensor_t<float> &e
 
 
 void forward(vector<layer_t *> &layers, tensor_t<float> &data) {
-    for (int i = 0; i < layers.size(); i++) {
+    for (size_t i = 0; i < layers.size(); i++) {
         if (i == 0)
             activate(layers[i], data);
         else
@@ -74,7 +74,7 @@ vector<case_t> read_test_cases() {
 
     uint32_t case_count = byteswap_uint32(*(uint32_t *) (train_image + 4));
 
-    for (int i = 0; i < case_count; i++) {
+    for (size_t i = 0; i < case_count; i++) {
         case_t c
                 {
                         tensor_t<float>(28, 28, 1),
@@ -86,7 +86,7 @@ vector<case_t> read_test_cases() {
 
         for (int x = 0; x < 28; x++)
             for (int y = 0; y < 28; y++)
-                c.data(x, y, 0) = img[x + y * 28] / 255.f;
+                c.data(x, y, 0) = (float) img[x + y * 28] / 255.f;
 
         for (int b = 0; b < 10; b++)
             c.out(b, 0, 0) = *label == b ? 1.0f : 0.0f;
@@ -105,16 +105,6 @@ int main() {
 
     vector<layer_t *> layers;
 
-//	auto * layer1 = new conv_layer_t( 1, 5, 8, cases[0].data.size );
-//	auto * layer2 = new relu_layer_t( layer1->out.size );
-//	auto * layer3 = new pool_layer_t( 2, 2, layer2->out.size );
-//
-//	auto * layer4 = new conv_layer_t( 1, 3, 10, layer3->out.size );
-//	auto * layer5 = new relu_layer_t( layer4->out.size );
-//	auto * layer6 = new pool_layer_t( 2, 2, layer5->out.size );
-//
-//	auto * layer7 = new fc_layer_t( layer6->out.size, 10 );
-
     layers.emplace_back((layer_t *) new conv_layer_t(1, 5, 8, cases[0].data.size)); // 28 * 28 * 1 -> 24 * 24 * 8
     layers.emplace_back((layer_t *) new relu_layer_t(layers.back()->out.size));
     layers.emplace_back((layer_t *) new pool_layer_t(2, 2, layers.back()->out.size)); // 24 * 24 * 8 -> 12 * 12 * 8
@@ -122,8 +112,6 @@ int main() {
     layers.emplace_back((layer_t *) new relu_layer_t(layers.back()->out.size));
     layers.emplace_back((layer_t *) new pool_layer_t(2, 2, layers.back()->out.size)); // 10 * 10 * 10 -> 5 * 5 * 10
     layers.emplace_back((layer_t *) new fc_layer_t(layers.back()->out.size, 10)); // 4 * 4 * 16 -> 10
-
-
 
     float amse = 0;
     int ic = 0;
@@ -138,7 +126,7 @@ int main() {
             ic++;
 
             if (ep % 1000 == 0)
-                cout << "case " << ep << " err=" << amse / ic << endl;
+                cout << "case " << ep << " err=" << amse / (float) ic << endl;
 
             // if ( GetAsyncKeyState( VK_F1 ) & 0x8000 )
             // {
@@ -148,7 +136,6 @@ int main() {
         }
     }
     // end:
-
 
 
     while (true) {
@@ -173,8 +160,8 @@ int main() {
                 for (int j = 0; j < 28; j++) {
                     RGB rgb_ij = rgb[i * 28 + j];
                     image(j, i, 0) = ((((float) rgb_ij.r
-                                        + rgb_ij.g
-                                        + rgb_ij.b)
+                                        + (float) rgb_ij.g
+                                        + (float) rgb_ij.b)
                                        / (3.0f * 255.f)));
                 }
             }
@@ -188,7 +175,7 @@ int main() {
             delete[] data;
         }
 
-        struct timespec wait;
+        struct timespec wait{};
         wait.tv_sec = 1;
         wait.tv_nsec = 0;
         nanosleep(&wait, nullptr);

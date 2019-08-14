@@ -75,7 +75,7 @@ vector<case_t> read_test_cases() {
 
     uint32_t case_count = byteswap_uint32(*(uint32_t *) (train_image + 4));
 
-    for (int i = 0; i < case_count; i++) {
+    for (size_t i = 0; i < case_count; i++) {
         case_t c{tensor_t<float>(28, 28, 1), tensor_t<float>(10, 1, 1)};
 
         uint8_t *img = train_image + 16 + i * (28 * 28);
@@ -83,7 +83,7 @@ vector<case_t> read_test_cases() {
 
         for (int x = 0; x < 28; x++)
             for (int y = 0; y < 28; y++)
-                c.data(x, y, 0) = img[x + y * 28] / 255.f;
+                c.data(x, y, 0) = (float) img[x + y * 28] / 255.f;
 
         for (int b = 0; b < 10; b++)
             c.out(b, 0, 0) = *label == b ? 1.0f : 0.0f;
@@ -119,7 +119,7 @@ int main() {
             ic++;
 
             if (ep % 1000 == 0)
-                cout << "case " << ep << " err=" << amse / ic << endl;
+                cout << "case " << ep << " err=" << amse / (float) ic << endl;
 
             // if ( GetAsyncKeyState( VK_F1 ) & 0x8000 )
             // {
@@ -154,8 +154,8 @@ int main() {
                 for (int j = 0; j < 28; j++) {
                     RGB rgb_ij = rgb[i * 28 + j];
                     image(j, i, 0) = (((float) rgb_ij.r
-                                       + rgb_ij.g
-                                       + rgb_ij.b)
+                                       + (float) rgb_ij.g
+                                       + (float) rgb_ij.b)
                                       / (3.0f * 255.f));
                 }
             }
@@ -169,7 +169,7 @@ int main() {
             delete[] data;
         }
 
-        struct timespec wait;
+        struct timespec wait{};
         wait.tv_sec = 1;
         wait.tv_nsec = 0;
         nanosleep(&wait, nullptr);

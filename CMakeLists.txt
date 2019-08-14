@@ -31,3 +31,9 @@ add_executable(example2
         "Example MNIST/byteswap.h"
         "Example MNIST/example2.cpp"
         "Example MNIST/sleep.h")
+
+add_executable(test
+        ${CNN_CORE}
+        "Example MNIST/byteswap.h"
+        "Example MNIST/test.cpp"
+        "Example MNIST/sleep.h")
