@@ -130,8 +130,69 @@ int main() {
     layers.emplace_back((layer_t *) new pool_layer_t(2, 2, layers.back()->out.size)); // 10 * 10 * 10 -> 5 * 5 * 10
     layers.emplace_back((layer_t *) new fc_layer_t(layers.back()->out.size, 10)); // 4 * 4 * 16 -> 10
 
+    const char* path = "nn_model";
+    std::ofstream out(path);
     for (auto & layer : layers) {
-        std::cout << toString(layer);
+        out << toString(layer);
+    }
+    out.close();
+
+    ifstream infile;
+    infile.open(path, ios::in);
+    if (infile.is_open()) {
+
+        string line;
+        while (getline(infile, line)) {
+
+            if (line.length() != 0) {
+
+                if (line == "fc") {
+                    cout << line << endl;
+                    getline(infile, line);
+                    tensor_t<float> tensor_in = string_to_tensor(line);
+
+                    cout << line << endl;
+
+                    getline(infile, line);
+                    tensor_t<float> tensor_out = string_to_tensor(line);
+
+                    cout << line << endl;
+
+                    getline(infile, line);
+                    tensor_t<float> tensor_weight = string_to_tensor(line);
+
+                    cout << line << endl;
+
+                    getline(infile, line);
+                    tensor_t<float> tensor_grads_in = string_to_tensor(line);
+
+                    cout << line << endl;
+
+                    auto* fcLayer = new fc_layer_t(tensor_in, tensor_out, tensor_weight, tensor_grads_in);
+
+                    cout << toString(reinterpret_cast<layer_t *>(fcLayer)) << endl;
+                }
+
+                if (line == "conv") {
+                    cout << line << endl;
+                }
+
+                if (line == "relu") {
+                    cout << line << endl;
+                }
+
+                if (line == "pool") {
+                    cout << line << endl;
+                }
+            }
+        }
+
+        infile.close();
+
+
+        return 0;
+    } else {
+        return 1;
     }
 //
 //    float amse = 0;

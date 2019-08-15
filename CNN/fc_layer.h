@@ -7,32 +7,37 @@
 #pragma pack(push, 1)
 struct fc_layer_t
 {
-	layer_type type = layer_type::fc;
-	tensor_t<float> grads_in;
-	tensor_t<float> in;
-	tensor_t<float> out;
-	std::vector<float> input;
-	tensor_t<float> weights;
-	std::vector<gradient_t> gradients;
+    layer_type type = layer_type::fc;
+    tensor_t<float> grads_in;
+    tensor_t<float> in;
+    tensor_t<float> out;
+    std::vector<float> input;
+    tensor_t<float> weights;
+    std::vector<gradient_t> gradients;
 
-	fc_layer_t( tdsize in_size, int out_size )
-		:
-		in( in_size.x, in_size.y, in_size.z ),
-		out( out_size, 1, 1 ),
-		grads_in( in_size.x, in_size.y, in_size.z ),
-		weights( in_size.x*in_size.y*in_size.z, out_size, 1 )
-	{
-		input = std::vector<float>( out_size );
-		gradients = std::vector<gradient_t>( out_size );
+    fc_layer_t( tdsize in_size, int out_size )
+            :
+            in( in_size.x, in_size.y, in_size.z ),
+            out( out_size, 1, 1 ),
+            grads_in( in_size.x, in_size.y, in_size.z ),
+            weights( in_size.x*in_size.y*in_size.z, out_size, 1 )
+    {
+        input = std::vector<float>( out_size );
+        gradients = std::vector<gradient_t>( out_size );
 
 
-		int maxval = in_size.x * in_size.y * in_size.z;
+        int maxval = in_size.x * in_size.y * in_size.z;
 
-		for ( int i = 0; i < out_size; i++ )
-			for ( int h = 0; h < in_size.x*in_size.y*in_size.z; h++ )
-				weights( h, i, 0 ) = 2.19722f / maxval * rand() / float( RAND_MAX );
-		// 2.19722f = f^-1(0.9) => x where [1 / (1 + exp(-x) ) = 0.9]
-	}
+        for ( int i = 0; i < out_size; i++ )
+            for ( int h = 0; h < in_size.x*in_size.y*in_size.z; h++ )
+                weights( h, i, 0 ) = 2.19722f / maxval * rand() / float( RAND_MAX );
+        // 2.19722f = f^-1(0.9) => x where [1 / (1 + exp(-x) ) = 0.9]
+    }
+
+    fc_layer_t(const tensor_t<float> &in, const tensor_t<float> &out, const tensor_t<float> &weights,
+               const tensor_t<float>& gradsIn)
+            : out(out), in(in), weights(weights), grads_in(gradsIn) {
+    }
 
 	float activator_function( float x )
 	{
@@ -124,6 +129,7 @@ struct fc_layer_t
         ss << tensor_to_string(in) << std::endl;
         ss << tensor_to_string(out) << std::endl;
         ss << tensor_to_string(weights) << std::endl;
+        ss << tensor_to_string(grads_in) << std::endl;
         return ss.str();
 	}
 };
