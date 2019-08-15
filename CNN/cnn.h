@@ -78,3 +78,21 @@ static void activate( layer_t* layer, tensor_t<float>& in )
 			assert( false );
 	}
 }
+
+static std::string toString( layer_t* layer) {
+    switch ( layer->type )
+    {
+        case layer_type::conv:
+            return ((conv_layer_t*)layer)->toString();
+        case layer_type::relu:
+            return ((relu_layer_t*)layer)->toString();
+        case layer_type::fc:
+            return ((fc_layer_t*)layer)->toString();
+        case layer_type::pool:
+            return ((pool_layer_t*)layer)->toString();
+        case layer_type::dropout_layer:
+            return ((dropout_layer_t*)layer)->toString();
+        default:
+            assert( false );
+    }
+}

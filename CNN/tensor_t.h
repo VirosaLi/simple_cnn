@@ -127,7 +127,7 @@ static tensor_t<float> string_to_tensor(const std::string& s) {
     std::vector<float> v((std::istream_iterator<float>(iss)), std::istream_iterator<float>());
     int x = (int) v[0];
     int y = (int) v[1];
-    int z = (int) v[2];/**/
+    int z = (int) v[2];
 
     tensor_t<float> t(x, y, z);
     for (int i = 0; i < z; ++i) {

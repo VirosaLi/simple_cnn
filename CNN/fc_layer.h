@@ -1,7 +1,7 @@
 #pragma once
-#include <math.h>
+#include <cmath>
 #include <float.h>
-#include <string.h>
+#include <cstring>
 #include "layer_t.h"
 
 #pragma pack(push, 1)
@@ -116,6 +116,15 @@ struct fc_layer_t
 						grads_in( i, j, z ) += grad.grad * weights( m, n, 0 );
 					}
 		}
+	}
+
+	 std::string toString() {
+        std::stringstream ss;
+        ss << "fc" << std::endl;
+        ss << tensor_to_string(in) << std::endl;
+        ss << tensor_to_string(out) << std::endl;
+        ss << tensor_to_string(weights) << std::endl;
+        return ss.str();
 	}
 };
 #pragma pack(pop)

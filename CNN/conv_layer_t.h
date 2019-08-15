@@ -145,12 +145,12 @@ struct conv_layer_t
 	void calc_grads( tensor_t<float>& grad_next_layer )
 	{
 
-		for ( int k = 0; k < filter_grads.size(); k++ )
+		for (auto & filter_grad : filter_grads)
 		{
 			for ( int i = 0; i < extend_filter; i++ )
 				for ( int j = 0; j < extend_filter; j++ )
 					for ( int z = 0; z < in.size.z; z++ )
-						filter_grads[k].get( i, j, z ).grad = 0;
+						filter_grad.get( i, j, z ).grad = 0;
 		}
 
 		for ( int x = 0; x < in.size.x; x++ )
@@ -179,6 +179,17 @@ struct conv_layer_t
 				}
 			}
 		}
+	}
+
+	 std::string toString() {
+        std::stringstream ss;
+        ss << "conv" << std::endl;
+        ss << tensor_to_string(in) << std::endl;
+        ss << tensor_to_string(out) << std::endl;
+        for(tensor_t<float> t : filters) {
+            ss << tensor_to_string(t) << std::endl;
+        }
+        return ss.str();
 	}
 };
 #pragma pack(pop)

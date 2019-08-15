@@ -54,5 +54,13 @@ struct relu_layer_t
 						(1 * grad_next_layer( i, j, z ));
 				}
 	}
+
+	 std::string toString() {
+	    std::stringstream ss;
+	    ss << "relu" << std::endl;
+	    ss << tensor_to_string(in) << std::endl;
+	    ss << tensor_to_string(out) << std::endl;
+        return ss.str();
+	}
 };
 #pragma pack(pop)

@@ -120,15 +120,19 @@ int main() {
     print_tensor(t);
 
 
-//    vector<layer_t *> layers;
-//
-//    layers.emplace_back((layer_t *) new conv_layer_t(1, 5, 8, cases[0].data.size)); // 28 * 28 * 1 -> 24 * 24 * 8
-//    layers.emplace_back((layer_t *) new relu_layer_t(layers.back()->out.size));
-//    layers.emplace_back((layer_t *) new pool_layer_t(2, 2, layers.back()->out.size)); // 24 * 24 * 8 -> 12 * 12 * 8
-//    layers.emplace_back((layer_t *) new conv_layer_t(1, 3, 10, layers.back()->out.size)); // 12 * 12 * 6 -> 10 * 10 * 10
-//    layers.emplace_back((layer_t *) new relu_layer_t(layers.back()->out.size));
-//    layers.emplace_back((layer_t *) new pool_layer_t(2, 2, layers.back()->out.size)); // 10 * 10 * 10 -> 5 * 5 * 10
-//    layers.emplace_back((layer_t *) new fc_layer_t(layers.back()->out.size, 10)); // 4 * 4 * 16 -> 10
+    vector<layer_t *> layers;
+
+    layers.emplace_back((layer_t *) new conv_layer_t(1, 5, 8, cases[0].data.size)); // 28 * 28 * 1 -> 24 * 24 * 8
+    layers.emplace_back((layer_t *) new relu_layer_t(layers.back()->out.size));
+    layers.emplace_back((layer_t *) new pool_layer_t(2, 2, layers.back()->out.size)); // 24 * 24 * 8 -> 12 * 12 * 8
+    layers.emplace_back((layer_t *) new conv_layer_t(1, 3, 10, layers.back()->out.size)); // 12 * 12 * 6 -> 10 * 10 * 10
+    layers.emplace_back((layer_t *) new relu_layer_t(layers.back()->out.size));
+    layers.emplace_back((layer_t *) new pool_layer_t(2, 2, layers.back()->out.size)); // 10 * 10 * 10 -> 5 * 5 * 10
+    layers.emplace_back((layer_t *) new fc_layer_t(layers.back()->out.size, 10)); // 4 * 4 * 16 -> 10
+
+    for (auto & layer : layers) {
+        std::cout << toString(layer);
+    }
 //
 //    float amse = 0;
 //    int ic = 0;

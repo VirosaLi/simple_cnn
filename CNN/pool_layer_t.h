@@ -136,5 +136,14 @@ struct pool_layer_t
 			}
 		}
 	}
+
+	 std::string toString() {
+	    std::stringstream ss;
+	    ss << "pool" << std::endl;
+	    ss << tensor_to_string(in) << std::endl;
+	    ss << tensor_to_string(out) << std::endl;
+	    ss << extend_filter << std::endl;
+        return ss.str();
+	}
 };
 #pragma pack(pop)
