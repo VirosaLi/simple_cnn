@@ -30,6 +30,6 @@ add_executable(example2
         ${CNN_CORE}
         "Example MNIST/example2.cpp")
 
-add_executable(test
+add_executable(example3
         ${CNN_CORE}
         "Example MNIST/example3.cpp")
