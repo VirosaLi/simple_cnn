@@ -7,6 +7,7 @@ include_directories(CNN)
 include_directories("Example MNIST")
 
 set(CNN_CORE
+        CNN/byteswap.h
         CNN/cnn.h
         CNN/conv_layer_t.h
         CNN/dropout_layer_t.h
