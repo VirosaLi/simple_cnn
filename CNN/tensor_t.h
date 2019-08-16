@@ -86,7 +86,7 @@ static void print_tensor(tensor_t<float> &data) {
         printf("[Dim%d]\n", z);
         for (int y = 0; y < my; y++) {
             for (int x = 0; x < mx; x++) {
-                printf("%.2f \t", (float) data.get(x, y, z));
+                printf("%.8f \t", (float) data.get(x, y, z));
             }
             printf("\n");
         }
@@ -134,6 +134,24 @@ static tensor_t<float> string_to_tensor(const std::string& s) {
         for (int j = 0; j < y; ++j) {
             for (int k = 0; k < x; ++k) {
                 t(k, j, i) = v[ x*y*i + y*j + k + 3];
+            }
+        }
+    }
+    return t;
+}
+
+static tensor_t<float> string_to_tensor_trans(const std::string& s) {
+    std::istringstream iss(s);
+    std::vector<float> v((std::istream_iterator<float>(iss)), std::istream_iterator<float>());
+    int x = (int) v[0];
+    int y = (int) v[1];
+    int z = (int) v[2];
+
+    tensor_t<float> t(x, y, z);
+    for (int i = 0; i < z; ++i) {
+        for (int j = 0; j < y; ++j) {
+            for (int k = 0; k < x; ++k) {
+                t(k, j, i) = v[ x*y*i + x*j + k + 3];
             }
         }
     }

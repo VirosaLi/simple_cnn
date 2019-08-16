@@ -18,22 +18,17 @@ set(CNN_CORE
         CNN/pool_layer_t.h
         CNN/relu_layer_t.h
         CNN/tensor_t.h
-        CNN/types.h)
+        CNN/types.h
+        CNN/utils.h)
 
 add_executable(example1
         ${CNN_CORE}
-        "Example MNIST/byteswap.h"
-        "Example MNIST/example1.cpp"
-        "Example MNIST/sleep.h")
+        "Example MNIST/example1.cpp")
 
 add_executable(example2
         ${CNN_CORE}
-        "Example MNIST/byteswap.h"
-        "Example MNIST/example2.cpp"
-        "Example MNIST/sleep.h")
+        "Example MNIST/example2.cpp")
 
 add_executable(test
         ${CNN_CORE}
-        "Example MNIST/byteswap.h"
-        "Example MNIST/test.cpp"
-        "Example MNIST/sleep.h")
+        "Example MNIST/example3.cpp")

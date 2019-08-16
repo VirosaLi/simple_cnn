@@ -33,6 +33,10 @@ struct pool_layer_t
 				((in_size.y - extend_filter) / stride + 1) );
 	}
 
+	pool_layer_t(const tensor_t<float>& in, const tensor_t<float>& out, const tensor_t<float>& gradsIn, uint16_t extend_filter, uint16_t stride)
+            : in(in), out(out), grads_in(gradsIn), extend_filter(extend_filter), stride(stride) {
+	}
+
 	point_t map_to_input( point_t out, int z )
 	{
 		out.x *= stride;
@@ -142,7 +146,9 @@ struct pool_layer_t
 	    ss << "pool" << std::endl;
 	    ss << tensor_to_string(in) << std::endl;
 	    ss << tensor_to_string(out) << std::endl;
+	    ss << tensor_to_string(grads_in) << std::endl;
 	    ss << extend_filter << std::endl;
+	    ss << stride << std::endl;
         return ss.str();
 	}
 };

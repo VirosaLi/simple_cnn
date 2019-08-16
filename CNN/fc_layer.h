@@ -22,7 +22,7 @@ struct fc_layer_t
             grads_in( in_size.x, in_size.y, in_size.z ),
             weights( in_size.x*in_size.y*in_size.z, out_size, 1 )
     {
-        input = std::vector<float>( out_size );
+        input = std::vector<float>(out_size );
         gradients = std::vector<gradient_t>( out_size );
 
 
@@ -35,8 +35,10 @@ struct fc_layer_t
     }
 
     fc_layer_t(const tensor_t<float> &in, const tensor_t<float> &out, const tensor_t<float> &weights,
-               const tensor_t<float>& gradsIn)
+               const tensor_t<float>&gradsIn)
             : out(out), in(in), weights(weights), grads_in(gradsIn) {
+        input = std::vector<float>( out.size.x );
+        gradients = std::vector<gradient_t>( out.size.x );
     }
 
 	float activator_function( float x )
