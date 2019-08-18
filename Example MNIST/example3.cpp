@@ -11,8 +11,11 @@ using namespace std;
 
 int main() {
 
+    const char* dataPath = "train-images.idx3-ubyte";
+    const char* labelPath = "train-labels.idx3-ubyte";
+
     // load training data
-    vector<case_t> cases = read_test_cases();
+    vector<case_t> cases = read_test_cases(dataPath, labelPath);
 
     // build network
     vector<layer_t *> layers;

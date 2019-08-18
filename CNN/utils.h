@@ -28,11 +28,11 @@ uint8_t *read_file(const char *szFile) {
     return buffer;
 }
 
-std::vector<case_t> read_test_cases() {
+std::vector<case_t> read_test_cases(const char* dataPath, const char * labelPath) {
     std::vector<case_t> cases;
 
-    uint8_t *train_image = read_file("train-images.idx3-ubyte");
-    uint8_t *train_labels = read_file("train-labels.idx1-ubyte");
+    uint8_t *train_image = read_file(dataPath);
+    uint8_t *train_labels = read_file(labelPath);
 
     uint32_t case_count = byteswap_uint32(*(uint32_t *) (train_image + 4));
 

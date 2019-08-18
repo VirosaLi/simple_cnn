@@ -7,7 +7,11 @@ using namespace std;
 
 int main() {
 
-    vector<case_t> cases = read_test_cases();
+    const char* dataPath = "train-images.idx3-ubyte";
+    const char* labelPath = "train-labels.idx3-ubyte";
+
+    // load training data
+    vector<case_t> cases = read_test_cases(dataPath, labelPath);
 
     vector<layer_t *> layers;
 

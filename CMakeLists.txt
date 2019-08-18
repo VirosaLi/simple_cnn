@@ -33,3 +33,7 @@ add_executable(example2
 add_executable(example3
         ${CNN_CORE}
         "Example MNIST/example3.cpp")
+
+add_executable(example4
+        ${CNN_CORE}
+        "Example MNIST/example4.cpp")
