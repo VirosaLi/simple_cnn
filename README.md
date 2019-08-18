@@ -3,18 +3,19 @@
 ## Forked Repo for CSE 569S
 This repo is forked and refactored from https://github.com/can1357/simple_cnn for CSE 569S.
 
-## Original Description from the author
+Changes made in the framework include:
 
-simple_cnn is ment to be an easy to read and easy to use convolutional neural network library.
+* Added MNIST test dataset.
+* Added save and load functions.
+* Removed the real-time inference from the example. See the original repo if you are interested.
+* Replaced deprecated libraries. 
+* Reformatted code.
+* And more.
 
-simple_cnn is written in a mostly C-like manner behind the scenes, doesnt use virtual classes and avoids using std where its possible so that it is easier to convert to CUDA code when needed.
+If you don't like this this version, you are welcome to directly use the original program from the link above.
 
 
-Example use on handwritten digit recognition (Youtube Video):
-
-[![Youtube Video](https://img.youtube.com/vi/afLUb6lFTCk/0.jpg)](https://www.youtube.com/watch?v=afLUb6lFTCk)
-
-# Building
+## Build
 
 Make sure cmake is installed.
 

@@ -10,10 +10,7 @@ pool_layer_t( 2, 2, ... );				// 24 * 24 * 8 -> 12 * 12 * 8
 fc_layer_t( ..., 10 );					// 4 * 4 * 16 -> 10
 ```
 
-###Results (Youtube Video):
-
-[![Youtube Video](https://img.youtube.com/vi/0nsxYBDTojs/0.jpg)](https://www.youtube.com/watch?v=0nsxYBDTojs)
-
+Tested with a single image.
 
 
 ##Example Topology 2:
@@ -28,8 +25,12 @@ pool_layer_t( 2, 2, ... );				// 10 * 10 * 10 -> 5 * 5 * 10
 fc_layer_t( ..., 10 );					// 4 * 4 * 16 -> 10
 ```
 
-###Results (Youtube Video):
+Tested with a single image.
 
-[![Youtube Video](https://img.youtube.com/vi/afLUb6lFTCk/0.jpg)](https://www.youtube.com/watch?v=afLUb6lFTCk)
+##Example 3: Save and Load Model
+
+##Example 4: Test Model with The MNIST test dataset
+
+Using topology 1, two iterations will give 96.93% accuracy.
 
 
