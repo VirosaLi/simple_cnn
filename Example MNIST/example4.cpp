@@ -70,6 +70,6 @@ int main() {
             correct++;
     }
 
-    cout << "correct: " << (float) correct / (float) testCases.size() * 100.0f << "%" << endl;
+    cout << "accuracy: " << (float) correct / (float) testCases.size() * 100.0f << "%" << endl;
     return 0;
 }

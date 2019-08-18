@@ -29,6 +29,8 @@ Tested with a single image.
 
 ##Example 3: Save and Load Model
 
+dropout layer doesn't support save and load yet.
+
 ##Example 4: Test Model with The MNIST test dataset
 
 Using topology 1, two iterations will give 96.93% accuracy.
